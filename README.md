@@ -1,30 +1,30 @@
 # Operating-Systems-Final-Project
 This is the final project of the Operating Systems class, and here I am simply creating and running a mini-web application, using docker, as it's built within in a container, that runs python and flask. It just shows the timetable based on the level.
 
-Steps taken:
-*1. Installed Docker and Started PostgreSQL in Docker**
+Read the code, as there are steps with follow along.
+
+*1. Start PostgreSQL in Docker**
 
 ```bash
-docker pull postgres:latest
+docker pull postgres:latest (Downloaded postgres)
 
-docker run --name webster-db -e POSTGRES_USER=Arslan -e POSTGRES_PASSWORD=Arslan2006@ -d -p 5432:5432 postgres:latest (MODIFIED/PERSONALIZED THIS)
+docker run --name webster-db -e POSTGRES_USER=Arslan -e POSTGRES_PASSWORD=Arslan2006@ -d -p 5432:5432 postgres:latest (created the container)
 
-docker ps
+docker ps (checked if it was working)
 
-docker exec -it webster-db psql -U Arslan (open psql to write data inside)
+docker exec -it webster-db psql -U Arslan (ran the psql database)
 ```
 
-### 2. **Set Up and Personalize the PostgreSQL Database and Tables**
+### 2. **Set Up the PostgreSQL Database and Tables**
 
-```sql
-psql -U arslan (launched psql and wrote the following personalized data inside)
+```sql (created the database, by pasting in information that is also personalized to my own classes)
 CREATE TABLE Timetable (
-    course_id SERIAL PRIMARY KEY,
-    course_name VARCHAR(255),
-    day VARCHAR(50),
-    time VARCHAR(50),
-    room VARCHAR(50),
-    level INT
+  course_id SERIAL PRIMARY KEY,
+  course_name VARCHAR(255),
+  day VARCHAR(50),
+  time VARCHAR(50),
+  room VARCHAR(50),  
+  level INT
 );
 
 
@@ -37,20 +37,13 @@ INSERT INTO Timetable (course_name, day, time, room, level) VALUES
 ('Discrete Mathematics', 'Thursday', '2:00 PM', 'Room 403', 1);
 
 
-CREATE TABLE Students (
-    student_id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    level INT
-);
 
--- Insert Sample Students Data
-INSERT INTO Students (name, level) VALUES
-('Arslan', 1),
 
 ```
-STEP IN BETWEEN: ---Before proceeding what I did was I created a directory for the app.py, which had the python code for the flask, and in the same folder created the html responsible for the website layout---
 
-### 3. **Installed Python and Flask Dependencies** 
+--Intermediate step, created a file called webster_timetable, created two subfiles, venv and templates, copied Step 4 Python Code into "app.py" and put it in venv, then I got the index.html and timetable.html code from Step 5, and created the files and put them insdie templates folder.
+
+### 3. **Install Python and Flask Dependencies**
 
 ```bash
 # Create and activate a virtual environment
@@ -61,7 +54,7 @@ source venv/bin/activate  # On Windows use venv\Scripts\activate
 pip install flask pg8000
 ```
 
-### 4. **Create Flask Application** (Pasted this into app.py)
+### 4. **Create Flask Application**
 
 ```python
 from flask import Flask, render_template, request
@@ -99,7 +92,7 @@ if __name__ == "__main__":
     app.run(debug=True)
 ```
 
-### 5. **HTML Templates for Flask** (Uploaded it to the same folder as app.py, so its in the same directory)
+### 5. **HTML Templates for Flask**
 
 #### **`index.html` (Form for Level Input)**
 
@@ -166,17 +159,22 @@ if __name__ == "__main__":
 </html>
 ```
 
-### 6. **Running the Flask Application** (ran this project inside the venv with the correct directory)
+--changed directory of where venv was running to venv folder inside webster_timetable--
+
+### 6. **Running the Flask Application**
 
 ```bash
 # Make sure you're in the directory with your Flask app
 # Run the Flask app
 python app.py
 ```
+-ran the code-
 
-### 7. **Accessing the Application** (pasted it inside Chrome and checked to see its functionability)
+### 7. **Accessing the Application** (went to this address to check if it was working)
 
 - Navigate to `http://127.0.0.1:5000/` in your web browser to see the application in action.
+
+(finished by taking screenshots of what I had, deactivated the venv, and stopped docker). 
 
 ### 8. **Stop the Docker Container**
 
